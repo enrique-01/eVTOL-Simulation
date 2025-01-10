@@ -14,13 +14,14 @@ Currently Working:
 - Average time per flight
 - Average distance traveled per flight
 - Average time charging per charge session
-- 
+- Total number of faults
 - Total number of passenger miles
 
-Not Working 
-- Total number of faults
 
 ToDo
 - Unit Tests
 - What to do during fault? Currently doing nothing assume this is just something we track. Would need to be discussion about what a fault even is
     what action do we want to take, is it recoverable, different severity levels, etc..
+    -Do nothing for now
+- Maybe improve the fault calulations
+    -lot of small numbers due to probablity/timestep. suspect theres some precision being lost also due to rounding, etc. Maybe we dont care?

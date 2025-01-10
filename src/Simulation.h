@@ -9,6 +9,8 @@
 #include <ctime>
 #include <iostream>
 #include <unordered_map>
+#include <cstdlib>
+#include <cmath>
 
 class Simulation {
     public:
