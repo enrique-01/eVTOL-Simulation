@@ -25,3 +25,5 @@ ToDo
     -Do nothing for now
 - Maybe improve the fault calulations
     -lot of small numbers due to probablity/timestep. suspect theres some precision being lost also due to rounding, etc. Maybe we dont care?
+- Compiler flags/warnings
+    -unused variables/functions
