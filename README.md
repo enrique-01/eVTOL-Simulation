@@ -29,3 +29,4 @@ ToDo
     -unused variables/function
 - Static Analysis 
     -Clang?
+- Add more unit test coverage? 

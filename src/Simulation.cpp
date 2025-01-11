@@ -145,13 +145,13 @@ void Simulation::simulateTimeStep(double timeStep) {
 }
 
 void Simulation::vehicleFlight(std::shared_ptr<Vehicle> vehicle, double timeStep) {
-    std::cout << "Vehicle is flying" << std::endl;
+    //std::cout << "Vehicle is flying" << std::endl;
     double energyUsed = vehicle->getEnergyUseAtCruise() * vehicle->getCruiseSpeed() * timeStep;
     vehicle->incrementTotalFlightTime(timeStep);
     vehicle->incrementTotalDistance(vehicle->getCruiseSpeed() * timeStep);
 
     // Drain the battery
-    std::cout << "Battery Level before draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
+    //std::cout << "Battery Level before draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
     double newBatteryLevel = vehicle->getCurrentBatteryLevel() - energyUsed;
 
     // Ensure battery doesn't go below 0
@@ -160,11 +160,11 @@ void Simulation::vehicleFlight(std::shared_ptr<Vehicle> vehicle, double timeStep
     }
 
     vehicle->setCurrentBatteryLevel(newBatteryLevel);
-    std::cout << "Battery Level after draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
+    //std::cout << "Battery Level after draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
 
     // Check if battery is empty and transition to charging
     if (vehicle->getCurrentBatteryLevel() == 0) {
-        std::cout << "Vehicle battery drained. Transitioning to charging." << std::endl;
+        //std::cout << "Vehicle battery drained. Transitioning to charging." << std::endl;
         vehicle->setIsFlying(false);
         vehicle->setIsCharging(true);
     }
@@ -209,7 +209,7 @@ void Simulation::printCompanyStats() {
 
         // Handle division by zero
         if (numFlights == 0) {
-            std::cout << "Error no flights." << std::endl;
+            //std::cout << "Error no flights." << std::endl;
             continue;
         }
 
@@ -231,4 +231,26 @@ void Simulation::printCompanyStats() {
         std::cout << "Total Passenger Miles: " << totalPassengerMiles << std::endl;
         std::cout << std::endl;
     }
+}
+
+int Simulation::getNumVehicles() {
+    return vehicles.size();
+}
+
+int Simulation::getNumChargers() {
+    return chargers.size();
+}
+
+// Get the list of vehicles
+std::vector<std::shared_ptr<Vehicle>> Simulation::getVehicles() {
+    return vehicles;
+}
+
+// Get the list of chargers
+std::vector<std::shared_ptr<Charger>> Simulation::getChargers() {
+    return chargers;
+}
+
+std::queue<std::shared_ptr<Vehicle>> Simulation::getChargerQueue() {
+    return chargerQueue;
 }

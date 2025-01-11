@@ -19,6 +19,13 @@ class Simulation {
 
         void run();
 
+        // Gettors
+        int getNumVehicles();
+        int getNumChargers();
+        std::vector<std::shared_ptr<Vehicle>> getVehicles();
+        std::vector<std::shared_ptr<Charger>> getChargers();
+        std::queue<std::shared_ptr<Vehicle>> getChargerQueue();
+
     private:
         // Methods
         void initVehicles();
