@@ -30,3 +30,19 @@ ToDo
 - Static Analysis 
     -Clang?
 - Add more unit test coverage? 
+
+To Build
+- make clean
+- make
+- make run_tests
+- ./build/bin/simulator (to run simulator)
+- ./build/bin/test_simulator (to run tests)
+
+Tests done via gtest
+
+sudo apt-get install g++
+sudo apt-get install make
+sudo apt-get install libgtest-dev
+
+Pretty much need standard libs: libstdc++, libm, libgcc &
+Google Test - libgtest-dev
