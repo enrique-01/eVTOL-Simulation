@@ -9,6 +9,8 @@
 #include <ctime>
 #include <iostream>
 #include <unordered_map>
+#include <cstdlib>
+#include <cmath>
 
 class Simulation {
     public:
@@ -16,6 +18,13 @@ class Simulation {
         Simulation(int totalVehicles, int totalChargers, double simulationTime);
 
         void run();
+
+        // Gettors
+        int getNumVehicles();
+        int getNumChargers();
+        std::vector<std::shared_ptr<Vehicle>> getVehicles();
+        std::vector<std::shared_ptr<Charger>> getChargers();
+        std::queue<std::shared_ptr<Vehicle>> getChargerQueue();
 
     private:
         // Methods

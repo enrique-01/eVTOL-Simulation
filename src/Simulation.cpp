@@ -73,11 +73,6 @@ void Simulation::initChargers() {
     }
 }
 
-// Simulate time step
-#include <queue>
-#include <algorithm>
-#include <memory>
-
 // Helper function to check if a vehicle is in the queue
 bool isVehicleInQueue(const std::shared_ptr<Vehicle>& vehicle, const std::queue<std::shared_ptr<Vehicle>>& queue) {
     std::queue<std::shared_ptr<Vehicle>> tempQueue = queue; // Create a temporary copy of the queue
@@ -150,13 +145,13 @@ void Simulation::simulateTimeStep(double timeStep) {
 }
 
 void Simulation::vehicleFlight(std::shared_ptr<Vehicle> vehicle, double timeStep) {
-    std::cout << "Vehicle is flying" << std::endl;
+    //std::cout << "Vehicle is flying" << std::endl;
     double energyUsed = vehicle->getEnergyUseAtCruise() * vehicle->getCruiseSpeed() * timeStep;
     vehicle->incrementTotalFlightTime(timeStep);
     vehicle->incrementTotalDistance(vehicle->getCruiseSpeed() * timeStep);
 
     // Drain the battery
-    std::cout << "Battery Level before draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
+    //std::cout << "Battery Level before draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
     double newBatteryLevel = vehicle->getCurrentBatteryLevel() - energyUsed;
 
     // Ensure battery doesn't go below 0
@@ -165,11 +160,11 @@ void Simulation::vehicleFlight(std::shared_ptr<Vehicle> vehicle, double timeStep
     }
 
     vehicle->setCurrentBatteryLevel(newBatteryLevel);
-    std::cout << "Battery Level after draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
+    //std::cout << "Battery Level after draining: " << vehicle->getCurrentBatteryLevel() << std::endl;
 
     // Check if battery is empty and transition to charging
     if (vehicle->getCurrentBatteryLevel() == 0) {
-        std::cout << "Vehicle battery drained. Transitioning to charging." << std::endl;
+        //std::cout << "Vehicle battery drained. Transitioning to charging." << std::endl;
         vehicle->setIsFlying(false);
         vehicle->setIsCharging(true);
     }
@@ -189,28 +184,72 @@ void Simulation::printCompanyStats() {
         double totalDistance = 0.0;
         double totalChargingTime = 0.0;
         int numChargingSessions = 0;
-        int numFaults = 0;
         int numFlights = 0;
         double totalPassengerMiles = 0.0;
+        double totalFaults = 0.0; // Use floating point for faults
 
         for (std::shared_ptr<Vehicle> vehicle : vehicles) {
             totalFlightTime += vehicle->getTotalFlightTime();
             totalDistance += vehicle->getTotalDistance();
             totalChargingTime += vehicle->getTotalTimeCharging();
             numChargingSessions += vehicle->getNumChargingSessions();
-            numFaults += vehicle->getNumFaults();
             numFlights++;
             totalPassengerMiles += vehicle->getTotalDistance() * vehicle->getPassengerCount();
+
+            // Get the fault probability per hour for the vehicle
+            //std::cout << "Fault Probability: " << vehicle->getFaultProbability() << std::endl;
+            double faultProbabilityPerHour = vehicle->getFaultProbability(); // Fault probability per hour
+
+            // Calculate the total number of faults for the vehicle (floating point)
+            double vehicleFaults = vehicle->getTotalFlightTime() * faultProbabilityPerHour;
+
+            // Accumulate the faults to the company total (floating-point)
+            totalFaults += vehicleFaults;
         }
+
+        // Handle division by zero
+        if (numFlights == 0) {
+            //std::cout << "Error no flights." << std::endl;
+            continue;
+        }
+
 
         std::cout << "Company: " << company << std::endl;
         std::cout << "Average Flight Time: per Flight " << totalFlightTime / numFlights << " hours" << std::endl;
         std::cout << "Average Distance Traveled per Flight: " << totalDistance / numFlights << " miles" << std::endl;
-        std::cout << "Average Time per Charging Session: " << totalChargingTime  / numChargingSessions << " hours" << std::endl;
-  
-        std::cout << "Number of Faults: " << numFaults << std::endl;
+
+        // ToDo need to change logic for this?
+        if (numChargingSessions == 0) {
+            std::cout << "Average Time per Charging Session: " << "No charging sessions." << std::endl;
+        }
+        else {
+            std::cout << "Average Time per Charging Session: " << totalChargingTime / numChargingSessions << " hours" << std::endl;
+        }
+        
+        std::cout << "Number of Faults: " << std::round(totalFaults) << std::endl; // Round the faults to whole numbers
         std::cout << "Total Passenger Miles: " << totalPassengerMiles << std::endl;
         std::cout << std::endl;
     }
+}
 
+int Simulation::getNumVehicles() {
+    return vehicles.size();
+}
+
+int Simulation::getNumChargers() {
+    return chargers.size();
+}
+
+// Get the list of vehicles
+std::vector<std::shared_ptr<Vehicle>> Simulation::getVehicles() {
+    return vehicles;
+}
+
+// Get the list of chargers
+std::vector<std::shared_ptr<Charger>> Simulation::getChargers() {
+    return chargers;
+}
+
+std::queue<std::shared_ptr<Vehicle>> Simulation::getChargerQueue() {
+    return chargerQueue;
 }

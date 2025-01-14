@@ -7,7 +7,7 @@ Vehicle::Vehicle(std::string companyIdentifier, double cruiseSpeed, double batte
     : companyIdentifier(companyIdentifier), cruiseSpeed(cruiseSpeed), batteryCapacity(batteryCapacity),
       timeToCharge(timeToCharge), energyUseAtCruise(energyUseAtCruise), passengerCount(passengerCount),
       probablyFaultPerHour(probablyFaultPerHour), totalFlightTime(0), totalDistance(0), totalTimeCharging(0),
-      numChargingSessions(0), numFaults(0), faultProbability(0), currentBatteryLevel(batteryCapacity), 
+      numChargingSessions(0), numFaults(0), faultProbability(probablyFaultPerHour), currentBatteryLevel(batteryCapacity), 
       isFlying(isFlying), isCharging(isCharging), isLanding(isLanding), isFaulty(isFaulty) {}
 
 // Setters
