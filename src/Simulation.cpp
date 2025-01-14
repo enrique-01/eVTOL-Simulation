@@ -221,7 +221,6 @@ void Simulation::printCompanyStats() {
         // ToDo need to change logic for this?
         if (numChargingSessions == 0) {
             std::cout << "Average Time per Charging Session: " << "No charging sessions." << std::endl;
-            continue;
         }
         else {
             std::cout << "Average Time per Charging Session: " << totalChargingTime / numChargingSessions << " hours" << std::endl;

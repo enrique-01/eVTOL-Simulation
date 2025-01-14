@@ -1,0 +1,34 @@
+Company: Alpha Company
+Average Flight Time: per Flight 1.67 hours
+Average Distance Traveled per Flight: 200.4 miles
+Average Time per Charging Session: No charging sessions.
+Number of Faults: 2
+Total Passenger Miles: 3206.4
+
+Company: Bravo Company
+Average Flight Time: per Flight 0.67 hours
+Average Distance Traveled per Flight: 67 miles
+Average Time per Charging Session: 0.2 hours
+Number of Faults: 0
+Total Passenger Miles: 1005
+
+Company: Delta Company
+Average Flight Time: per Flight 1.67 hours
+Average Distance Traveled per Flight: 150.3 miles
+Average Time per Charging Session: No charging sessions.
+Number of Faults: 1
+Total Passenger Miles: 901.8
+
+Company: Charlie Company
+Average Flight Time: per Flight 0.63 hours
+Average Distance Traveled per Flight: 100.8 miles
+Average Time per Charging Session: 0.8 hours
+Number of Faults: 0
+Total Passenger Miles: 1209.6
+
+Company: Echo Company
+Average Flight Time: per Flight 0.87 hours
+Average Distance Traveled per Flight: 26.1 miles
+Average Time per Charging Session: 0.3 hours
+Number of Faults: 3
+Total Passenger Miles: 313.2

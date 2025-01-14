@@ -1,40 +1,27 @@
 # eVTOL-Simulation
 
+Results
+- Single run results can be found in results.txt
+
 Classes
 ---------
 Vehicle Class
 Charger Class
 Simulation Class
 
-Vehicle Class represent eVTOL w/ vehicle specs, info to track, etc
-Charger Class represents the 3 chargers being used. Can work with a queue of vehicles, assign to chargers if empty, and simulate charging per timestep
-Simulation Class represents the simulation logic for the 20 vehicles being initalized, 3 chargers being initialized, then simulating a timestep in which the vehicles can be charging/flying
+Vehicle Class - eVTOL w/ vehicle specs, info to track, etc
+Charger Class - the 3 chargers being used. Can work with a queue of vehicles, assign to chargers if empty, and simulate charging per timestep
+Simulation Class - the simulation logic for the 20 vehicles being initalized, 3 chargers being initialized, then simulating a timestep in which the vehicles can be charging/flying
 
 Currently Working:
-- Average time per flight
-- Average distance traveled per flight
-- Average time charging per charge session
-- Total number of faults
-- Total number of passenger miles
+- All Requirements
 
-
-ToDo
-- Unit Tests
-- What to do during fault? Currently doing nothing assume this is just something we track. Would need to be discussion about what a fault even is
-    what action do we want to take, is it recoverable, different severity levels, etc..
-    -Do nothing for now
-- Maybe improve the fault calulations
-    -lot of small numbers due to probablity/timestep. suspect theres some precision being lost also due to rounding, etc. Maybe we dont care?
-- Compiler flags/warnings
-    -unused variables/function
-- Static Analysis 
-    -Clang?
-- Add more unit test coverage? 
+-------------------------------------------------------------------------------------------------------------
 
 To Build
 - make clean
-- make
-- make run_tests
+- make (to build simulator)
+- make run_tests (to build tests)
 - ./build/bin/simulator (to run simulator)
 - ./build/bin/test_simulator (to run tests)
 
@@ -46,3 +33,20 @@ sudo apt-get install libgtest-dev
 
 Pretty much need standard libs: libstdc++, libm, libgcc &
 Google Test - libgtest-dev
+
+(Removed .gitignore of build folder to keep leftover build artifacts)
+
+-------------------------------------------------------------------------------------------------------------
+
+ToDo
+- Unit Tests - Add more coverage
+- Fault - currently we only keep track of the faults we don't do anything if one were to occur.
+        - discussion on behavior of faults. What are faults, severity levels, what action do we need to take, etc.
+- Maybe improve the fault calulations
+        -lot of small numbers due to probablity/timestep. suspect theres some precision being lost also due to rounding, etc.
+- Static Analysis (Probably not)
+        - Clang?
+- State Machine - if we wanted to add behavior for faults and more advanced simulation (ie not instant cruise speed, etc). 
+- Base Class w/ Virtual declaration - could leverage polymorphism to have different vehicle with different behaviors, but similar base functionalities. Could also add extra methods/etc specfic to that vehicle.
+        - seems a bit overkill for this given the vehicles share the exact same behaviors and stats
+- Logger - add better logger than just cout to follow execution path better and create logs for errors. 
